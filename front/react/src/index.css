@@ -1,0 +1,726 @@
+/* =========================================================
+   CLASSIC LIBRARY THEME
+   Black, white & grey  +  dark green  +  orange only on hover
+   HTML same rahega, sirf CSS badli hai.
+   ========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Montserrat:wght@400;500;600;700&display=swap');
+
+:root {
+  --black: #121413;
+  --charcoal: #1d211f;
+  --green: #24382e;
+  --green-deep: #182720;
+  --grey-900: #3a3d3b;
+  --grey-600: #6b6e6b;
+  --grey-400: #a4a6a3;
+  --grey-200: #d9dad7;
+  --grey-100: #eceeeb;
+  --grey-50: #f5f5f3;
+  --white: #ffffff;
+  --orange: #d9772b;
+  --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --sans: 'Montserrat', system-ui, sans-serif;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  width: 100%;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  color: var(--grey-900);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.6;
+  background: linear-gradient(180deg, var(--grey-50) 0%, var(--grey-200) 100%) fixed;
+}
+
+/* ---------- Animations (kam aur saaf) ---------- */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-100%); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes page-turn {
+  0%, 100% { transform: rotateY(0deg); }
+  50%      { transform: rotateY(-14deg); }
+}
+@keyframes row-in {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* =========================================================
+   HEADER  (dark bar, tracked serif logo)
+   ========================================================= */
+.header {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 80px;
+  padding: 14px clamp(20px, 6vw, 76px);
+  background: linear-gradient(90deg, var(--black), var(--charcoal));
+  border-bottom: 1px solid var(--green);
+  animation: slide-down 0.6s var(--ease) both;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0;
+  color: var(--white);
+  font-family: var(--serif);
+  font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+/* books on a shelf icon (reference jaisa) */
+.logo::before {
+  content: '';
+  width: 26px;
+  height: 22px;
+  background:
+    linear-gradient(var(--white), var(--white)) 0 0 / 3px 100% no-repeat,
+    linear-gradient(var(--white), var(--white)) 6px 0 / 3px 100% no-repeat,
+    linear-gradient(var(--white), var(--white)) 12px 0 / 3px 100% no-repeat,
+    linear-gradient(var(--white), var(--white)) 18px 3px / 3px calc(100% - 3px) no-repeat;
+  transform: skewX(-8deg);
+  transition: background-color 250ms var(--ease);
+}
+
+.logo:hover::before {
+  filter: drop-shadow(0 0 0 var(--orange)) sepia(1) saturate(6) hue-rotate(345deg);
+}
+
+.header button {
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--grey-400);
+  border-radius: 0;
+  cursor: pointer;
+  transition: background 250ms var(--ease), border-color 250ms var(--ease);
+}
+
+.header button,
+.header button a {
+  color: var(--white);
+  font: 500 0.72rem/1 var(--sans);
+  letter-spacing: 0.2em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.header button a {
+  display: block;
+  padding: 13px 26px;
+}
+
+.header button:hover {
+  background: var(--orange);
+  border-color: var(--orange);
+}
+
+.header button:focus-within,
+.header button:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+}
+
+/* =========================================================
+   WELCOME PAGE
+   ========================================================= */
+.welcomepage {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem;
+  padding: clamp(2rem, 7vw, 6rem) 1.25rem;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at 50% 0%, var(--white), transparent 55%),
+    linear-gradient(180deg, var(--grey-100) 0%, var(--grey-200) 100%);
+  animation: fade-in 0.8s ease both;
+}
+
+/* soft bottom shadow, jaise reference me book ke neeche */
+.welcomepage::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  bottom: -120px;
+  width: min(900px, 120%);
+  height: 240px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgb(36 56 46 / 28%), transparent 65%);
+  pointer-events: none;
+}
+
+/* Open book icon (black/white/green) */
+.welcomepage h2::before {
+  content: '';
+  display: block;
+  width: 96px;
+  height: 66px;
+  margin: 0 auto 1.8rem;
+  background:
+    linear-gradient(90deg, transparent 48.5%, var(--green) 48.5% 51.5%, transparent 51.5%),
+    repeating-linear-gradient(to bottom, transparent 0 9px, rgb(36 56 46 / 28%) 9px 10px),
+    linear-gradient(90deg, var(--white) 0 48%, var(--grey-100) 52% 100%);
+  border: 1px solid var(--grey-400);
+  clip-path: polygon(0 10%, 44% 18%, 50% 24%, 56% 18%, 100% 10%, 100% 90%, 56% 82%, 50% 88%, 44% 82%, 0 90%);
+  filter: drop-shadow(0 12px 14px rgb(18 20 19 / 22%));
+  transform-origin: center bottom;
+  animation: fade-up 0.8s 0.1s var(--ease) both, page-turn 6s 1s ease-in-out infinite;
+}
+
+.welcomepage h2 {
+  max-width: 860px;
+  margin: 0;
+  color: var(--green);
+  font-family: var(--sans);
+  font-size: clamp(1.7rem, 4.4vw, 3.2rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  animation: fade-up 0.9s 0.15s var(--ease) both;
+}
+
+.welcomepage p {
+  max-width: 560px;
+  margin: 0;
+  color: var(--grey-600);
+  font-family: var(--serif);
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-weight: 500;
+  line-height: 1.7;
+  animation: fade-up 0.9s 0.3s var(--ease) both;
+}
+
+.feature {
+  width: min(100%, 780px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 0.4rem;
+}
+
+.feature span {
+  padding: 0.8rem 1.3rem;
+  color: var(--grey-900);
+  background: rgb(255 255 255 / 55%);
+  border: 1px solid var(--grey-400);
+  border-radius: 0;
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: default;
+  animation: fade-up 0.8s var(--ease) both;
+  transition: color 250ms var(--ease), border-color 250ms var(--ease), background 250ms var(--ease), transform 250ms var(--ease);
+}
+
+.feature span:nth-child(1) { animation-delay: 0.45s; }
+.feature span:nth-child(2) { animation-delay: 0.55s; }
+.feature span:nth-child(3) { animation-delay: 0.65s; }
+.feature span:nth-child(4) { animation-delay: 0.75s; }
+
+.feature span:hover {
+  color: var(--orange);
+  background: var(--white);
+  border-color: var(--orange);
+  transform: translateY(-3px);
+}
+
+.welcomebtn {
+  margin-top: 0.8rem;
+  animation: fade-up 0.9s 0.85s var(--ease) both;
+}
+
+.welcomebtn a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0.9rem 2.4rem;
+  overflow: hidden;
+  color: var(--green);
+  background: transparent;
+  border: 1px solid var(--green);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-decoration: none;
+  text-transform: uppercase;
+  z-index: 0;
+  transition: color 350ms var(--ease), border-color 350ms var(--ease);
+}
+
+/* orange fill left se slide hota hai */
+.welcomebtn a::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--orange);
+  transform: translateX(-101%);
+  transition: transform 400ms var(--ease);
+}
+
+.welcomebtn a:hover { color: var(--white); border-color: var(--orange); }
+.welcomebtn a:hover::before { transform: translateX(0); }
+
+.welcomebtn a:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 4px;
+}
+
+/* =========================================================
+   LOGIN + SIGNUP
+   ========================================================= */
+.signup,
+.login {
+  width: min(100% - 2rem, 440px);
+  margin: 4rem auto;
+  padding: clamp(2rem, 6vw, 3rem);
+  color: var(--grey-900);
+  font-family: var(--sans);
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  border-top: 4px solid var(--green);
+  border-radius: 2px;
+  box-shadow: 0 24px 60px rgb(18 20 19 / 12%);
+  animation: fade-up 0.8s var(--ease) both;
+}
+
+.signup h1 {
+  margin: 0 0 1.8rem;
+  padding-bottom: 1rem;
+  color: var(--black);
+  font-family: var(--serif);
+  font-size: clamp(2.1rem, 7vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border-bottom: 1px solid var(--grey-200);
+}
+
+.signup form,
+.login form {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.signup form br,
+.login form br { display: none; }
+
+.signup label,
+.login label {
+  margin-top: 0.6rem;
+  color: var(--grey-900);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.signup input,
+.login input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.75rem 0.2rem;
+  color: var(--black);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--grey-400);
+  border-radius: 0;
+  font: 400 1rem var(--sans);
+  transition: border-color 250ms var(--ease), box-shadow 250ms var(--ease);
+}
+
+.signup input::placeholder,
+.login input::placeholder { color: var(--grey-400); }
+
+.signup input:focus-visible,
+.login input:focus-visible {
+  outline: none;
+  border-bottom-color: var(--orange);
+  box-shadow: 0 1px 0 var(--orange);
+}
+
+.signup button,
+.login button {
+  position: relative;
+  min-height: 52px;
+  margin-top: 1.4rem;
+  overflow: hidden;
+  color: var(--white);
+  background: var(--green);
+  border: 0;
+  border-radius: 0;
+  font: 600 0.78rem var(--sans);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  z-index: 0;
+  transition: transform 200ms var(--ease);
+}
+
+.signup button::before,
+.login button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--orange);
+  transform: translateY(101%);
+  transition: transform 350ms var(--ease);
+}
+
+.signup button:hover::before,
+.login button:hover::before { transform: translateY(0); }
+
+.signup button:active,
+.login button:active { transform: translateY(1px); }
+
+.signup button:focus-visible,
+.login button:focus-visible,
+.signup a:focus-visible,
+.login a:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+}
+
+.signup p,
+.login p {
+  margin: 1.6rem 0 0.3rem;
+  color: var(--grey-600);
+  font-size: 0.88rem;
+}
+
+.signup a,
+.login a {
+  margin-left: 0.25rem;
+  color: var(--green);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-underline-offset: 4px;
+  transition: color 200ms var(--ease);
+}
+
+.signup a:hover,
+.login a:hover { color: var(--orange); }
+
+/* =========================================================
+   BOOK FORM + DATA TABLE
+   ========================================================= */
+.book-form,
+.data {
+  width: min(100% - 32px, 1100px);
+  margin: 28px auto;
+  animation: fade-up 0.7s var(--ease) both;
+}
+
+.book-form form {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
+  gap: 8px 22px;
+  align-items: end;
+  padding: 28px;
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  border-top: 4px solid var(--green);
+  border-radius: 2px;
+  box-shadow: 0 18px 44px rgb(18 20 19 / 10%);
+}
+
+.book-form h1 {
+  grid-column: 1 / -1;
+  margin: 0 0 10px;
+  color: var(--black);
+  font-family: var(--serif);
+  font-size: clamp(1.7rem, 3vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.book-form label {
+  color: var(--grey-900);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.book-form label:nth-of-type(1) { grid-column: 1; grid-row: 2; }
+.book-form label:nth-of-type(2) { grid-column: 2; grid-row: 2; }
+.book-form label:nth-of-type(3) { grid-column: 3; grid-row: 2; }
+.book-form label:nth-of-type(4) { grid-column: 4; grid-row: 2; }
+
+.book-form input {
+  width: 100%;
+  min-width: 0;
+  height: 46px;
+  padding: 0 4px;
+  color: var(--black);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--grey-400);
+  border-radius: 0;
+  outline: none;
+  font: inherit;
+  transition: border-color 250ms var(--ease), box-shadow 250ms var(--ease);
+}
+
+.book-form input::placeholder { color: var(--grey-400); }
+
+.book-form input:focus {
+  border-bottom-color: var(--orange);
+  box-shadow: 0 1px 0 var(--orange);
+}
+
+.book-form input:nth-of-type(1) { grid-column: 1; grid-row: 3; }
+.book-form input:nth-of-type(2) { grid-column: 2; grid-row: 3; }
+.book-form input:nth-of-type(3) { grid-column: 3; grid-row: 3; }
+.book-form input:nth-of-type(4) { grid-column: 4; grid-row: 3; }
+
+.book-form .btn {
+  position: relative;
+  grid-column: 5;
+  grid-row: 3;
+  min-width: 130px;
+  height: 46px;
+  padding: 0 22px;
+  overflow: hidden;
+  color: var(--white);
+  background: var(--green);
+  border: 0;
+  border-radius: 0;
+  font: 600 0.74rem var(--sans);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  z-index: 0;
+}
+
+.book-form .btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--orange);
+  transform: translateY(101%);
+  transition: transform 350ms var(--ease);
+}
+
+.book-form .btn:hover::before { transform: translateY(0); }
+
+.book-form .btn:focus-visible,
+.data button:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+}
+
+/* ----- data table ----- */
+.data {
+  overflow: hidden;
+  padding: 0 20px 20px;
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: 2px;
+  box-shadow: 0 18px 44px rgb(18 20 19 / 10%);
+}
+
+.data .headdata,
+.data .datarow {
+  display: grid;
+  grid-template-columns: 1.2fr 1.2fr 1fr 1fr auto;
+  align-items: center;
+  gap: 14px;
+}
+
+.data .headdata {
+  min-height: 58px;
+  margin: 0 -20px 6px;
+  padding: 0 20px;
+  background: var(--black);
+  border-bottom: 3px solid var(--green);
+}
+
+.data .headdata label {
+  color: var(--white);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.data .headdata label:nth-child(3) { display: none; }
+
+.data .datarow {
+  min-height: 62px;
+  padding: 10px 14px;
+  margin: 0 -14px;
+  color: var(--grey-900);
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--grey-100);
+  border-left: 3px solid transparent;
+  animation: row-in 0.5s var(--ease) both;
+  transition: background 250ms var(--ease), border-color 250ms var(--ease), padding 250ms var(--ease);
+}
+
+.data .datarow:nth-child(2) { animation-delay: 0.05s; }
+.data .datarow:nth-child(3) { animation-delay: 0.1s; }
+.data .datarow:nth-child(4) { animation-delay: 0.15s; }
+.data .datarow:nth-child(5) { animation-delay: 0.2s; }
+.data .datarow:nth-child(6) { animation-delay: 0.25s; }
+
+.data .datarow:hover {
+  background: var(--grey-50);
+  border-left-color: var(--orange);
+  padding-left: 20px;
+}
+
+.data .datarow:last-child { border-bottom: 0; }
+
+.data .datarow span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.data .datarow button {
+  padding: 9px 16px;
+  color: var(--grey-900);
+  background: transparent;
+  border: 1px solid var(--grey-400);
+  border-radius: 0;
+  font: 600 0.68rem var(--sans);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 220ms var(--ease), border-color 220ms var(--ease), background 220ms var(--ease);
+}
+
+.data .datarow button:hover {
+  color: var(--white);
+  background: var(--orange);
+  border-color: var(--orange);
+}
+
+.data .datashowhere {
+  padding: 46px 16px;
+  text-align: center;
+}
+
+.data .datashowhere h1 {
+  margin: 0;
+  color: var(--grey-400);
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+/* =========================================================
+   404 PAGE
+   ========================================================= */
+[class="404page"] {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  text-align: center;
+  color: var(--black);
+  font-family: var(--serif);
+  background: linear-gradient(180deg, var(--grey-50), var(--grey-200));
+}
+
+[class="404page"] h2 {
+  margin: 0;
+  padding: 40px 48px;
+  color: var(--green);
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  border-bottom: 4px solid var(--orange);
+  border-radius: 2px;
+  box-shadow: 0 24px 60px rgb(18 20 19 / 12%);
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.04em;
+  text-transform: capitalize;
+  animation: fade-up 0.8s var(--ease) both;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 700px) {
+  .book-form form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 20px;
+  }
+  .book-form label:nth-of-type(1) { grid-column: 1; grid-row: 2; }
+  .book-form label:nth-of-type(2) { grid-column: 2; grid-row: 2; }
+  .book-form input:nth-of-type(1) { grid-column: 1; grid-row: 3; }
+  .book-form input:nth-of-type(2) { grid-column: 2; grid-row: 3; }
+  .book-form label:nth-of-type(3) { grid-column: 1; grid-row: 4; }
+  .book-form label:nth-of-type(4) { grid-column: 2; grid-row: 4; }
+  .book-form input:nth-of-type(3) { grid-column: 1; grid-row: 5; }
+  .book-form input:nth-of-type(4) { grid-column: 2; grid-row: 5; }
+  .book-form .btn { grid-column: 1 / -1; grid-row: 6; width: 100%; margin-top: 12px; }
+
+  .data { overflow-x: auto; padding: 0 14px 14px; }
+  .data .headdata,
+  .data .datarow { min-width: 560px; gap: 10px; }
+  .data .headdata { margin-inline: -14px; padding-inline: 14px; }
+}
+
+@media (max-width: 520px) {
+  .header { min-height: 68px; padding-inline: 18px; }
+  .logo { gap: 10px; letter-spacing: 0.18em; }
+  .logo::before { width: 22px; height: 19px; }
+  .header button a { padding: 11px 16px; }
+  .welcomepage { gap: 1.3rem; }
+  .welcomepage h2 { letter-spacing: 0.08em; }
+  .feature { gap: 0.6rem; }
+  .feature span { padding: 0.7rem 0.95rem; font-size: 0.68rem; }
+  .signup, .login { margin: 1.5rem auto; padding: 1.7rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
