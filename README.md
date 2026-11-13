@@ -106,7 +106,3 @@ The app runs on **http://localhost:5173**.
 <img width="1750" height="817" alt="Screenshot 2026-11-12 194822" src="https://github.com/user-attachments/assets/493c69ab-d5a9-4cc0-ae47-5b2c37911848" />
 
 
-## 👤 Author
-
-Built by **Your Name**.
-- GitHub: [your-username](https://github.com/your-username)
